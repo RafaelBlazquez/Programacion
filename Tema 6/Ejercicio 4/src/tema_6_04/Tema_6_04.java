@@ -25,6 +25,49 @@ public class Tema_6_04 {
      */
     public static void main(String[] args) {
         try{
+            Estudio e1 =AnadirEstudio1();
+            Estudio e2 =AnadirEstudio2();
+            
+            Pelicula p1 =AnadirPelicula1();
+            Pelicula p2 =AnadirPelicula2();
+            Pelicula p3 =AnadirPelicula3();
+            
+            ArrayList<Estudio> listaEstudios0 = new ArrayList();
+                listaEstudios0.add(e1);
+                listaEstudios0.add(e2);
+       
+            ArrayList<Estudio> listaEstudios1 = new ArrayList();
+                listaEstudios1.add(e1);
+                
+        //    ArrayList<Estudio> listaEstudios2 = new ArrayList();
+        //        listaEstudios2.add(e2);
+
+            p1.setListaEstudios(listaEstudios0);
+                  
+            p2.setListaEstudios(listaEstudios1);
+
+            p3.setListaEstudios(listaEstudios1);
+
+            listaPeliculas = new ArrayList();
+            listaEstudios = new ArrayList();
+            listaPeliculas.add(p1);
+            listaPeliculas.add(p2);
+            listaPeliculas.add(p3);
+            listaEstudios.add(e1);
+            listaEstudios.add(e2);
+
+            String peliculas = mensajePeliculas();
+            String estudios = mensajeEstudios();
+            JOptionPane.showMessageDialog(null, "La lista de peliculas es\n"+peliculas);
+            JOptionPane.showMessageDialog(null, "La lista de estudios es\n"+estudios);
+            PeliculaLarga();
+            MasPeliculas();
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getClass());
+        }
+    }
+    public static Estudio AnadirEstudio1() throws Exception{
         Estudio e1=new Estudio();
             e1.setNombre("Pixar");
             e1.setCiudad("Hawaii");
@@ -36,8 +79,11 @@ public class Tema_6_04 {
                 listaTelefonosPixar.add("900900900");
                 listaTelefonosPixar.add("900900800");
                 listaTelefonosPixar.add("900900700");
-            e1.setTelefonos(listaTelefonosPixar);   
-        
+            e1.setTelefonos(listaTelefonosPixar);
+            return e1;
+    }
+    
+    public static Estudio AnadirEstudio2() throws Exception{
         Estudio e2=new Estudio();
             e2.setNombre("Walt Disney");
             e2.setCiudad("California");
@@ -50,45 +96,26 @@ public class Tema_6_04 {
                 listaTelefonosDisney.add("900800800");
                 listaTelefonosDisney.add("900800700");
             e2.setTelefonos(listaTelefonosDisney);   
-        
-        ArrayList<Estudio> listaEstudios1 = new ArrayList();
-            listaEstudios1.add(e1);
-            listaEstudios1.add(e2);
-        
-        ArrayList<Estudio> listaEstudios2 = new ArrayList();
-            listaEstudios2.add(e1);
-
-        
+            return e2;
+    }
+    
+    public static Pelicula AnadirPelicula1() throws Exception{
         Pelicula p1=new Pelicula();
             p1.setTitulo("Madagascar");
             p1.setAno(1999);
             p1.setDuracion(120);
-            p1.setTipo("Comedia");
-            p1.setListaEstudios(listaEstudios1);
-        
+            p1.setTipo("Comedia");    
+        return p1;
+    }
+    
+    public static Pelicula AnadirPelicula2() throws Exception{
         Pelicula p2=new Pelicula("Los Increibles",2001,110);
-            p2.setListaEstudios(listaEstudios1);
-           
-        Pelicula p3=new Pelicula("Terminator",1994,130,"Accion",listaEstudios2);
-         
-        listaPeliculas = new ArrayList();
-        listaEstudios = new ArrayList();
-        listaPeliculas.add(p1);
-        listaPeliculas.add(p2);
-        listaPeliculas.add(p3);
-        listaEstudios.add(e1);
-        listaEstudios.add(e2);
-        
-        String peliculas = mensajePeliculas();
-        String estudios = mensajeEstudios();
-        JOptionPane.showMessageDialog(null, "La lista de peliculas es\n"+peliculas);
-        JOptionPane.showMessageDialog(null, "La lista de estudios es\n"+estudios);
-        PeliculaLarga();
-        MasPeliculas();
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null, e.getClass());
-        }
+        return p2;
+    }
+    
+    public static Pelicula AnadirPelicula3() throws Exception{
+        Pelicula p3=new Pelicula("Terminator",1994,130);
+        return p3;
     }
     public static String mensajePeliculas()throws Exception{
         String mensaje="";
