@@ -5,6 +5,10 @@
  */
 package Vista;
 
+
+import java.util.ArrayList;
+import tema_7_3_01.Controlador;
+
 /**
  *
  * @author 1gdaw01
@@ -42,7 +46,7 @@ public class VistaGeneral extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         tfPrecioCompra = new javax.swing.JTextField();
-        cbProveedores = new javax.swing.JComboBox<>();
+        cbProveedor = new javax.swing.JComboBox<>();
         tfImporteCompra = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -51,7 +55,7 @@ public class VistaGeneral extends javax.swing.JFrame {
         tfCliente = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         cbPorVolumen = new javax.swing.JCheckBox();
-        cdProntoPago = new javax.swing.JCheckBox();
+        cbProntoPago = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         tfImporteVenta = new javax.swing.JTextField();
         bAceptar = new javax.swing.JButton();
@@ -76,16 +80,41 @@ public class VistaGeneral extends javax.swing.JFrame {
         });
 
         tfUnidades.setEnabled(false);
+        tfUnidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUnidadesActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Operación a contabilizar"));
 
         buttonGroup1.add(rbCompra);
         rbCompra.setText("Compra");
         rbCompra.setEnabled(false);
+        rbCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                rbCompraFocusLost(evt);
+            }
+        });
+        rbCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCompraActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbVenta);
         rbVenta.setText("Venta");
         rbVenta.setEnabled(false);
+        rbVenta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                rbVentaFocusLost(evt);
+            }
+        });
+        rbVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbVentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,8 +146,18 @@ public class VistaGeneral extends javax.swing.JFrame {
         jLabel6.setText("Importe de la compra");
 
         tfPrecioCompra.setEnabled(false);
+        tfPrecioCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfPrecioCompraActionPerformed(evt);
+            }
+        });
 
-        cbProveedores.setEnabled(false);
+        cbProveedor.setEnabled(false);
+        cbProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProveedorActionPerformed(evt);
+            }
+        });
 
         tfImporteCompra.setEnabled(false);
         tfImporteCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +179,7 @@ public class VistaGeneral extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +197,7 @@ public class VistaGeneral extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -171,6 +210,11 @@ public class VistaGeneral extends javax.swing.JFrame {
         jLabel7.setText("Precio");
 
         tfPrecioVenta.setEnabled(false);
+        tfPrecioVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfPrecioVentaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Cliente");
 
@@ -181,8 +225,8 @@ public class VistaGeneral extends javax.swing.JFrame {
         cbPorVolumen.setText("Por volumen");
         cbPorVolumen.setEnabled(false);
 
-        cdProntoPago.setText("Por pronto pago");
-        cdProntoPago.setEnabled(false);
+        cbProntoPago.setText("Por pronto pago");
+        cbProntoPago.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -192,7 +236,7 @@ public class VistaGeneral extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(cbPorVolumen)
                 .addGap(50, 50, 50)
-                .addComponent(cdProntoPago)
+                .addComponent(cbProntoPago)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -201,13 +245,18 @@ public class VistaGeneral extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbPorVolumen)
-                    .addComponent(cdProntoPago))
+                    .addComponent(cbProntoPago))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jLabel9.setText("Importe de la venta");
 
         tfImporteVenta.setEnabled(false);
+        tfImporteVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfImporteVentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -256,7 +305,11 @@ public class VistaGeneral extends javax.swing.JFrame {
         bAceptar.setEnabled(false);
 
         bCancelar.setText("Cancelar");
-        bCancelar.setEnabled(false);
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,21 +321,18 @@ public class VistaGeneral extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(tfUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
-                                .addComponent(tfNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
@@ -322,12 +372,112 @@ public class VistaGeneral extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreProductoActionPerformed
-        // TODO add your handling code here:
+        boolean continuar = Controlador.ValidarProducto(tfNombreProducto.getText());
+        if (continuar){
+            tfNombreProducto.setEnabled(false);
+            tfUnidades.setEnabled(true); 
+            tfUnidades.requestFocus();
+        }
+        else{
+            tfNombreProducto.setText(""); 
+        }
     }//GEN-LAST:event_tfNombreProductoActionPerformed
 
     private void tfImporteCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfImporteCompraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfImporteCompraActionPerformed
+
+    private void tfUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUnidadesActionPerformed
+        tfUnidades.setEnabled(false);
+        rbCompra.setEnabled(true);
+        rbVenta.setEnabled(true);
+    }//GEN-LAST:event_tfUnidadesActionPerformed
+
+    private void rbCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rbCompraFocusLost
+       
+    }//GEN-LAST:event_rbCompraFocusLost
+
+    private void rbVentaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rbVentaFocusLost
+        
+    }//GEN-LAST:event_rbVentaFocusLost
+
+    private void tfImporteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfImporteVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfImporteVentaActionPerformed
+
+    private void rbCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCompraActionPerformed
+        if (rbCompra.isSelected()){
+            tfPrecioCompra.setEnabled(true);
+            cbProveedor.setEnabled(false);
+            tfCliente.setText("");
+            tfCliente.setEnabled(false);
+            cbPorVolumen.setSelected(false);
+            cbPorVolumen.setEnabled(false);
+            cbProntoPago.setSelected(false);
+            cbProntoPago.setEnabled(false);
+            tfImporteVenta.setText("");
+            tfImporteVenta.setEnabled(false);
+            ArrayList<String> nombres = Controlador.DameProveedores();
+            RellenarComboBox(nombres,true);
+        }
+        else{
+            tfPrecioCompra.setText("");
+            tfPrecioCompra.setEnabled(false);
+            cbProveedor.setEnabled(false);
+            tfCliente.setEnabled(true);
+            cbPorVolumen.setEnabled(true);
+            cbProntoPago.setEnabled(true);
+            tfImporteVenta.setEnabled(true);
+            RellenarComboBox(false);
+        }
+    }//GEN-LAST:event_rbCompraActionPerformed
+
+    private void rbVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbVentaActionPerformed
+        if (rbCompra.isSelected()){
+            tfPrecioCompra.setEnabled(true);
+            cbProveedor.setEnabled(false);
+            tfCliente.setText("");
+            tfCliente.setEnabled(false);
+            cbPorVolumen.setSelected(false);
+            cbPorVolumen.setEnabled(false);
+            cbProntoPago.setSelected(false);
+            cbProntoPago.setEnabled(false);
+            tfImporteVenta.setText("");
+            tfImporteVenta.setEnabled(false);
+            ArrayList<String> nombres = Controlador.DameProveedores();
+            RellenarComboBox(nombres,true);
+        }
+        else{
+            tfPrecioCompra.setText("");
+            tfPrecioCompra.setEnabled(false);
+            cbProveedor.setEnabled(false);
+            tfCliente.setEnabled(true);
+            cbPorVolumen.setEnabled(true);
+            cbProntoPago.setEnabled(true);
+            tfImporteVenta.setEnabled(true);
+            RellenarComboBox(false);
+        }
+    }//GEN-LAST:event_rbVentaActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+       Controlador.salir();
+    }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void tfPrecioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPrecioVentaActionPerformed
+        
+    }//GEN-LAST:event_tfPrecioVentaActionPerformed
+
+    private void tfPrecioCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPrecioCompraActionPerformed
+        tfPrecioCompra.setEnabled(false);
+        cbProveedor.setEnabled(true);
+        
+    }//GEN-LAST:event_tfPrecioCompraActionPerformed
+
+    private void cbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProveedorActionPerformed
+        
+        double importe= Integer.parseInt(tfUnidades.getText())*Double.parseDouble(tfPrecioCompra.getText());
+        tfImporteCompra.setText(""+importe);
+    }//GEN-LAST:event_cbProveedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,11 +507,26 @@ public class VistaGeneral extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaGeneral().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaGeneral().setVisible(true);
         });
+    }
+    public void RellenarComboBox(boolean anadir){
+        if (!anadir){
+           cbProveedor.removeAllItems();
+        }
+    }
+    public void RellenarComboBox(ArrayList<String> nombres,boolean anadir){
+        if (anadir){
+            int x;
+            cbProveedor.addItem("");
+            for (x=0 ; x<nombres.size();x++){
+                cbProveedor.addItem(nombres.get(x));
+            }
+        }
+        else{
+            cbProveedor.removeAllItems();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -369,8 +534,8 @@ public class VistaGeneral extends javax.swing.JFrame {
     private javax.swing.JButton bCancelar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox cbPorVolumen;
-    private javax.swing.JComboBox<String> cbProveedores;
-    private javax.swing.JCheckBox cdProntoPago;
+    private javax.swing.JCheckBox cbProntoPago;
+    private javax.swing.JComboBox<String> cbProveedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

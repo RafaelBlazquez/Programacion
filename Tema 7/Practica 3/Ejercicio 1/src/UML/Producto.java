@@ -15,7 +15,7 @@ public class Producto {
     String nombre;
     int unidades;
     double precio;
-    ArrayList<Proveedor> proveedoresProducto;
+    ArrayList<Proveedor> proveedoresProducto = new ArrayList();
 
     public Producto() {
     }
@@ -24,6 +24,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = unidades;
+       
     }
 
     public Producto(String nombre, double precio, int unnidades, ArrayList<Proveedor> proveedoresProducto) {
@@ -65,7 +66,7 @@ public class Producto {
         this.proveedoresProducto = proveedoresProducto;
     }
     public void setProveedorProducto(Proveedor proveedor){
-        this.proveedoresProducto.add(proveedor);
+        proveedoresProducto.add(proveedor);
     }
 
     @Override

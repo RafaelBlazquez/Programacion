@@ -6,6 +6,7 @@
 package tema_7_3_01;
 
 import UML.*;
+import Vista.*;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,15 @@ public class Controlador {
      */
     public static ArrayList<Proveedor> listaProveedores = new ArrayList();
     public static ArrayList<Producto> listaProductos = new ArrayList();
+    public static ArrayList<Cliente> listaClientes = new ArrayList();
+    public static VistaGeneral v1 ;
+    public static Producto productoSeleccionado;
     public static void main(String[] args) {
         rellenarProveedores();
         rellenarProductos();
+        v1= new VistaGeneral();
+        v1.setVisible(true);
+        
     }
     public static void rellenarProveedores(){
         Proveedor p0 = new Proveedor("Juan");
@@ -48,4 +55,26 @@ public class Controlador {
         listaProductos.add(producto2);
         listaProductos.add(producto3);
     }  
+    public static boolean ValidarProducto(String producto){
+        int x;
+        for (x=0;x<listaProductos.size() && !producto.equalsIgnoreCase(listaProductos.get(x).getNombre()); x++);
+        if (x<listaProductos.size())
+        {
+            productoSeleccionado = listaProductos.get(x);
+            return true;
+        }
+        else
+        return false;
+    }
+    public static ArrayList<String> DameProveedores(){
+        int x;
+        ArrayList<String> listaNombres = new ArrayList();
+        for(x=0; x<productoSeleccionado.getProveedoresProducto().size(); x++)
+            listaNombres.add(productoSeleccionado.getProveedoresProducto().get(x).getNombre());
+        return listaNombres;
+    }
+    public static void salir(){
+        v1.removeAll();
+        System.exit(0);
+    }
 }
