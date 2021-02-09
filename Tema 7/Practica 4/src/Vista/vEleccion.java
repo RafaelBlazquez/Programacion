@@ -29,7 +29,6 @@ public class vEleccion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
         bConsulta = new javax.swing.JButton();
         bMovimiento = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -46,8 +45,6 @@ public class vEleccion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jToolBar1.setRollover(true);
-
         bConsulta.setText("Consulta");
         bConsulta.setFocusable(false);
         bConsulta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -57,7 +54,6 @@ public class vEleccion extends javax.swing.JFrame {
                 bConsultaActionPerformed(evt);
             }
         });
-        jToolBar1.add(bConsulta);
 
         bMovimiento.setText("Movimientos");
         bMovimiento.setFocusable(false);
@@ -68,7 +64,6 @@ public class vEleccion extends javax.swing.JFrame {
                 bMovimientoActionPerformed(evt);
             }
         });
-        jToolBar1.add(bMovimiento);
 
         jMenu1.setText("Resumen");
         jMenuBar1.add(jMenu1);
@@ -117,16 +112,25 @@ public class vEleccion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(bConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70)
+                .addComponent(bMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 252, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(bMovimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 91, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void miConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaActionPerformed
@@ -199,7 +203,6 @@ public class vEleccion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem miConsulta;
     private javax.swing.JMenuItem miMovimiento;
     // End of variables declaration//GEN-END:variables

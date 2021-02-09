@@ -6,6 +6,7 @@
 package Vista;
 
 import java.util.ArrayList;
+import tema_7_4_01.Main;
 
 
 
@@ -15,30 +16,7 @@ import java.util.ArrayList;
  */
 public class vInicioSesion extends javax.swing.JFrame {
 
-    public void ConfigurarBotones() {
-       
-        ArrayList<Integer> numerosRandom = new ArrayList();
-        int numero;
-  
-        do{
-            numero=(int)(Math.random()*10);
-            
-                if (!numerosRandom.contains(numero))
-                    numerosRandom.add(numero);
-            
-        }
-        while (numerosRandom.size()==10);
-        bUno.setText(""+numerosRandom.get(0));
-        bDos.setText(""+numerosRandom.get(1));
-        bTres.setText(""+numerosRandom.get(2));
-        bCuatro.setText(""+numerosRandom.get(3));
-        bCinco.setText(""+numerosRandom.get(4));
-        bSeis.setText(""+numerosRandom.get(5));
-        bSiete.setText(""+numerosRandom.get(6));
-        bOcho.setText(""+numerosRandom.get(7));
-        bNueve.setText(""+numerosRandom.get(8));
-        bDiez.setText(""+numerosRandom.get(9));
-    }
+    
 
     /**
      * Creates new form vInicioSesion
@@ -46,7 +24,7 @@ public class vInicioSesion extends javax.swing.JFrame {
     public vInicioSesion() {
         initComponents();
     }
-    
+    public String contrasena= "";
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,11 +56,95 @@ public class vInicioSesion extends javax.swing.JFrame {
 
         jLabel1.setText("DNI / NIF");
 
+        tfDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDniActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Sin puntos, guiones o blancos");
 
         jLabel3.setText("Clave");
 
+        tfClave.setEnabled(false);
+
+        bUno.setEnabled(false);
+        bUno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUnoActionPerformed(evt);
+            }
+        });
+
+        bDos.setEnabled(false);
+        bDos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDosActionPerformed(evt);
+            }
+        });
+
+        bTres.setEnabled(false);
+        bTres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTresActionPerformed(evt);
+            }
+        });
+
+        bCuatro.setEnabled(false);
+        bCuatro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCuatroActionPerformed(evt);
+            }
+        });
+
+        bCinco.setEnabled(false);
+        bCinco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCincoActionPerformed(evt);
+            }
+        });
+
+        bSeis.setEnabled(false);
+        bSeis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSeisActionPerformed(evt);
+            }
+        });
+
+        bSiete.setEnabled(false);
+        bSiete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSieteActionPerformed(evt);
+            }
+        });
+
+        bOcho.setEnabled(false);
+        bOcho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOchoActionPerformed(evt);
+            }
+        });
+
+        bNueve.setEnabled(false);
+        bNueve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bNueveActionPerformed(evt);
+            }
+        });
+
+        bDiez.setEnabled(false);
+        bDiez.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDiezActionPerformed(evt);
+            }
+        });
+
         bEntrar.setText("Entrar");
+        bEntrar.setEnabled(false);
+        bEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEntrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,8 +220,67 @@ public class vInicioSesion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tfDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDniActionPerformed
+      tfDni.setEnabled(false);
+      bUno.setEnabled(true);
+      bDos.setEnabled(true);
+      bTres.setEnabled(true);
+      bCuatro.setEnabled(true);
+      bCinco.setEnabled(true);
+      bSeis.setEnabled(true);
+      bSiete.setEnabled(true);
+      bOcho.setEnabled(true);
+      bNueve.setEnabled(true);
+      bDiez.setEnabled(true);
+    }//GEN-LAST:event_tfDniActionPerformed
+
+    private void bUnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUnoActionPerformed
+        BotonPulsado(Integer.parseInt(bUno.getText()));
+    }//GEN-LAST:event_bUnoActionPerformed
+
+    private void bDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDosActionPerformed
+        BotonPulsado(Integer.parseInt(bDos.getText()));
+    }//GEN-LAST:event_bDosActionPerformed
+
+    private void bTresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTresActionPerformed
+        BotonPulsado(Integer.parseInt(bTres.getText()));
+    }//GEN-LAST:event_bTresActionPerformed
+
+    private void bCuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCuatroActionPerformed
+        BotonPulsado(Integer.parseInt(bCuatro.getText()));
+    }//GEN-LAST:event_bCuatroActionPerformed
+
+    private void bCincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCincoActionPerformed
+        BotonPulsado(Integer.parseInt(bCinco.getText()));
+    }//GEN-LAST:event_bCincoActionPerformed
+
+    private void bSeisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSeisActionPerformed
+        BotonPulsado(Integer.parseInt(bSeis.getText()));
+    }//GEN-LAST:event_bSeisActionPerformed
+
+    private void bSieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSieteActionPerformed
+        BotonPulsado(Integer.parseInt(bSiete.getText()));
+    }//GEN-LAST:event_bSieteActionPerformed
+
+    private void bOchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOchoActionPerformed
+        BotonPulsado(Integer.parseInt(bOcho.getText()));
+    }//GEN-LAST:event_bOchoActionPerformed
+
+    private void bNueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNueveActionPerformed
+        BotonPulsado(Integer.parseInt(bNueve.getText()));
+    }//GEN-LAST:event_bNueveActionPerformed
+
+    private void bDiezActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDiezActionPerformed
+        BotonPulsado(Integer.parseInt(bDiez.getText()));
+    }//GEN-LAST:event_bDiezActionPerformed
+
+    private void bEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEntrarActionPerformed
+        Main.tenDniContrasena(tfDni.getText(),contrasena);
+    }//GEN-LAST:event_bEntrarActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -194,7 +315,36 @@ public class vInicioSesion extends javax.swing.JFrame {
             }
         });
     }
-
+   
+    public void ConfigurarBotones() {
+        ArrayList<Integer> numerosRandom = new ArrayList();
+        int numero;
+        do{
+            numero=(int)(Math.random()*10);
+                if (!numerosRandom.contains(numero))
+                    numerosRandom.add(numero);
+        }
+        while (numerosRandom.size()!=10);
+        bUno.setText(""+numerosRandom.get(0));
+        bDos.setText(""+numerosRandom.get(1));
+        bTres.setText(""+numerosRandom.get(2));
+        bCuatro.setText(""+numerosRandom.get(3));
+        bCinco.setText(""+numerosRandom.get(4));
+        bSeis.setText(""+numerosRandom.get(5));
+        bSiete.setText(""+numerosRandom.get(6));
+        bOcho.setText(""+numerosRandom.get(7));
+        bNueve.setText(""+numerosRandom.get(8));
+        bDiez.setText(""+numerosRandom.get(9));
+    }
+    
+    public void BotonPulsado(int numero){ 
+        
+        contrasena+= numero;
+        if(tfClave.getText().length()<=5)
+        tfClave.setText(tfClave.getText()+"*");
+        if(tfClave.getText().length()==6)
+           bEntrar.setEnabled(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCinco;
     private javax.swing.JButton bCuatro;
