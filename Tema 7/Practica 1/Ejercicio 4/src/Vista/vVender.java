@@ -20,6 +20,13 @@ public class vVender extends javax.swing.JFrame {
     public double precio;
     public vVender() {
         initComponents();
+        tfProducto.setText("");
+        tfProducto.setEnabled(true);
+        tfUnidades.setText("");
+        tfUnidades.setEditable(false);
+        tfPrecioUnitario.setText("");
+        tfPrecioUnitario.setEditable(false);
+        bAceptar.setEnabled(false);
     }
 
     /**
@@ -32,7 +39,7 @@ public class vVender extends javax.swing.JFrame {
     private void initComponents() {
 
         tfUnidades = new javax.swing.JTextField();
-        tfImporte = new javax.swing.JTextField();
+        tfPrecioUnitario = new javax.swing.JTextField();
         bAceptar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -50,7 +57,12 @@ public class vVender extends javax.swing.JFrame {
             }
         });
 
-        tfImporte.setEnabled(false);
+        tfPrecioUnitario.setEnabled(false);
+        tfPrecioUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfPrecioUnitarioFocusLost(evt);
+            }
+        });
 
         bAceptar.setText("Aceptar");
         bAceptar.setEnabled(false);
@@ -75,7 +87,7 @@ public class vVender extends javax.swing.JFrame {
 
         jLabel3.setText("Unidades");
 
-        jLabel4.setText("Importe");
+        jLabel4.setText("Precio Unitario");
 
         tfProducto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -99,12 +111,12 @@ public class vVender extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfProducto)
                             .addComponent(tfUnidades)
-                            .addComponent(tfImporte, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                            .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                         .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -123,7 +135,7 @@ public class vVender extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAceptar)
@@ -141,12 +153,20 @@ public class vVender extends javax.swing.JFrame {
         tfProducto.setEnabled(true);
         tfUnidades.setText("");
         tfUnidades.setEditable(false);
-        tfImporte.setText("");
+        tfPrecioUnitario.setText("");
+        tfPrecioUnitario.setEditable(false);
         bAceptar.setEnabled(false);
         Controlador.finAceptar("vender");
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        tfProducto.setText("");
+        tfProducto.setEnabled(true);
+        tfUnidades.setText("");
+        tfUnidades.setEditable(false);
+        tfPrecioUnitario.setText("");
+        tfPrecioUnitario.setEditable(false);
+        bAceptar.setEnabled(false);
         Controlador.finCancelar("vender");
     }//GEN-LAST:event_bCancelarActionPerformed
 
@@ -164,10 +184,16 @@ public class vVender extends javax.swing.JFrame {
     }//GEN-LAST:event_tfProductoFocusLost
 
     private void tfUnidadesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUnidadesFocusLost
-        double importe = Integer.parseInt(tfUnidades.getText())*precio;
-        tfImporte.setText(""+importe);
-        bAceptar.setEnabled(true);
+        tfUnidades.setEditable(false);
+        tfPrecioUnitario.setEditable(true);
+        tfPrecioUnitario.setEnabled(true);
+        
     }//GEN-LAST:event_tfUnidadesFocusLost
+
+    private void tfPrecioUnitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPrecioUnitarioFocusLost
+        bAceptar.setEnabled(true);
+        Controlador.tenDatosVenta(Integer.parseInt(tfUnidades.getText()),Double.parseDouble(tfPrecioUnitario.getText()));
+    }//GEN-LAST:event_tfPrecioUnitarioFocusLost
 
     /**
      * @param args the command line arguments
@@ -211,7 +237,7 @@ public class vVender extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField tfImporte;
+    private javax.swing.JTextField tfPrecioUnitario;
     private javax.swing.JTextField tfProducto;
     private javax.swing.JTextField tfUnidades;
     // End of variables declaration//GEN-END:variables

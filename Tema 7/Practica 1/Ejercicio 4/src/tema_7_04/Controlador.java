@@ -18,6 +18,8 @@ public class Controlador {
     //falta restar unidades
     //falta resetear tf
     private static int cantidadCompra;
+    private static int cantidadVenta;
+    private static double precioVenta;
     private static String productoCompra;
     private static final vEleccion v1 = new vEleccion();
     private static final vComprar v2 = new vComprar();
@@ -53,7 +55,7 @@ public class Controlador {
         productoCompra = producto;
     }
     public static void ActualizarConsultas(){
-        WEVQ
+        
         v4.setVisible(true);
     }
     public static double validarNombre(String nombreProducto){
@@ -61,6 +63,7 @@ public class Controlador {
         for(int x=0; x<productos.size(); x++){
             if (productos.get(x).getNombre().equalsIgnoreCase(nombreProducto)){
                 correcto=productos.get(x).getPrecio();
+                productoCompra = nombreProducto;
             }    
         }
       return correcto;  
@@ -69,20 +72,43 @@ public class Controlador {
         v3.setVisible(true);
         
     }
+    public static void tenCantidad(int cantidad){
+        cantidadCompra = cantidad;
+    }
     public static void finAceptar(String palabra){
         if (palabra.equals("comprar")){
-            for (int x=0 ; x<productos.size(); x++)
-                if (productos.get(x).getNombre().equals(productoCompra)){
+            int x;
+            for (x=0 ; x<productos.size() && !productos.get(x).getNombre().equalsIgnoreCase(productoCompra); x++){}
+                if ( x<productos.size()){
                     productos.get(x).setCantidad(productos.get(x).getCantidad()-cantidadCompra);
-                    JOptionPane.showMessageDialog(null,productos.get(x).getCantidad());
+                    
+                    JOptionPane.showMessageDialog(null,"Unidades restantes "+productos.get(x).getCantidad());
                 }
             v2.setVisible(false);
         }
         if (palabra.equals("vender")){
-            
+            int x;
+         for (x=0 ; x<productos.size() && !productos.get(x).getNombre().equalsIgnoreCase(productoCompra); x++){}
+                if ( x<productos.size()){
+                    productos.get(x).setCantidad(productos.get(x).getCantidad()+cantidadVenta);
+                    JOptionPane.showMessageDialog(null,"Unidades restantes "+productos.get(x).getCantidad());
+                }
             v3.setVisible(false);
         }
         v1.setVisible(true);
+    }
+    public static void actualizarPrecio(){
+        if (precioVenta!=0){
+        int x;
+        for (x=0 ; x<productos.size() && !productos.get(x).getNombre().equalsIgnoreCase(productoCompra); x++){}
+                if ( x<productos.size()){
+                productos.get(x).setPrecio(precioVenta*2);
+                }
+        }
+    }
+    public static void tenDatosVenta(int unidades, double precio){
+        cantidadVenta = unidades;
+        precioVenta = precio;
     }
     public static void finCancelar(String palabra){
         if (palabra.equals("comprar")){

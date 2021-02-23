@@ -148,6 +148,7 @@ public class vComprar extends javax.swing.JFrame {
     }//GEN-LAST:event_tfProductoActionPerformed
     
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        cantidadCompra=Integer.parseInt(tfUnidades.getText());
         JOptionPane.showMessageDialog(null,"Operación llevada a cabo con éxito");
         tfProducto.setText("");
         tfProducto.setEnabled(true);
@@ -155,13 +156,14 @@ public class vComprar extends javax.swing.JFrame {
         tfUnidades.setEditable(false);
         tfImporte.setText("");
         bAceptar.setEnabled(false);
-        cantidadCompra=Integer.parseInt(tfUnidades.getText());
+        
         Controlador.finAceptar("comprar");
         
     }//GEN-LAST:event_bAceptarActionPerformed
     
     private void tfProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfProductoFocusLost
         if (Controlador.validarNombre(tfProducto.getText())>0){
+            Controlador.actualizarPrecio();
             tfProducto.setEnabled(false);
             precio=Controlador.validarNombre(tfProducto.getText());
             tfUnidades.setEnabled(true);
@@ -175,9 +177,17 @@ public class vComprar extends javax.swing.JFrame {
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         Controlador.finCancelar("comprar");
+        tfProducto.setText("");
+        tfProducto.setEnabled(true);
+        tfUnidades.setText("");
+        tfUnidades.setEditable(false);
+        tfImporte.setText("");
+        bAceptar.setEnabled(false);
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void tfUnidadesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUnidadesFocusLost
+        
+        Controlador.tenCantidad(Integer.parseInt(tfUnidades.getText()));
         double importe = Integer.parseInt(tfUnidades.getText())*precio;
         tfImporte.setText(""+importe);
         bAceptar.setEnabled(true);
