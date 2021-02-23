@@ -5,10 +5,11 @@
  */
 package Excepciones;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author blagon
  */
 public class DanoniNoValido extends Exception{
-    
 }

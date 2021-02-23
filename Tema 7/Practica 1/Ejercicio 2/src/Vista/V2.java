@@ -7,6 +7,7 @@ package Vista;
 
 import Modelo.Persona;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import tema_7_02.Controlador;
 
 /**
@@ -89,6 +90,7 @@ public class V2 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
@@ -129,6 +131,7 @@ public class V2 extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSalir;

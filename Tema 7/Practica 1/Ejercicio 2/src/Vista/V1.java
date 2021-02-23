@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
 import tema_7_02.Controlador;
 
 /**
@@ -127,6 +128,7 @@ public class V1 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
@@ -142,12 +144,18 @@ public class V1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        
         Controlador.tenControlador(tfDNI.getText(),tfNombre.getText(), tfApellidos.getText());
+        
         tfDNI.setText("");
+        
         tfNombre.setText("");
         tfApellidos.setText("");
     }//GEN-LAST:event_bAceptarActionPerformed
-
+    
+    public void datoNoValido(){
+        JOptionPane.showMessageDialog(null,"El DNI introducido no es correcto");
+    }
     /**
      * @param args the command line arguments
      */
