@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import tema_7_03.Controlador;
+
 /**
  *
  * @author blagon
@@ -16,6 +18,12 @@ public class vModificarAlumno extends javax.swing.JFrame {
      */
     public vModificarAlumno() {
         initComponents();
+    }
+
+    public vModificarAlumno(String codigo) {
+        initComponents();
+        tfCursoGuardado.setText(codigo);
+        
     }
 
     /**
@@ -35,6 +43,8 @@ public class vModificarAlumno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tfCursoGuardado.setEnabled(false);
+        tfCursoGuardado.setFocusable(false);
         tfCursoGuardado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCursoGuardadoActionPerformed(evt);
@@ -88,10 +98,14 @@ public class vModificarAlumno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       //validarCurso();
+       String curso;
+       curso = tfNuevoCurso.getText();
+       Controlador.modificado(curso);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfCursoGuardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCursoGuardadoActionPerformed

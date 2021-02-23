@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import tema_7_03.Controlador;
+
 /**
  *
  * @author blagon
@@ -82,14 +84,15 @@ public class vAccion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Controlador.modificarAlumno();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirActionPerformed
-        // TODO add your handling code here:
+        Controlador.eliminarAlumno();
     }//GEN-LAST:event_bAnadirActionPerformed
 
     /**

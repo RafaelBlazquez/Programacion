@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
 import tema_7_03.Controlador;
 
 /**
@@ -171,6 +172,7 @@ public class vIntroducirDatos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfApellidosActionPerformed
@@ -182,15 +184,16 @@ public class vIntroducirDatos extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCursoActionPerformed
 
     private void bAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirActionPerformed
-        Controlador.TenControlador(tfDNI.getText(),tfNombre.getText(), tfApellidos.getText(), tfCurso.getText());
+        Controlador.tenControlador(tfDNI.getText(),tfNombre.getText(), tfApellidos.getText(), tfCurso.getText());
         tfDNI.setText("");
         tfNombre.setText("");
         tfApellidos.setText("");
         tfCurso.setText("");
+        
     }//GEN-LAST:event_bAnadirActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
-        Controlador.FinalizarEjecucion();
+        Controlador.finalizarEjecucion();
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void tfDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDNIActionPerformed
@@ -200,7 +203,9 @@ public class vIntroducirDatos extends javax.swing.JFrame {
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombreActionPerformed
-
+    public void cursoIncorrecto(){
+        JOptionPane.showMessageDialog(null, "El curso introducido no es correcto");
+    }
     /**
      * @param args the command line arguments
      */
