@@ -66,12 +66,21 @@ public class Controlador {
         else
         return false;
     }
+    public static double damePrecio(){
+        double precio = productoSeleccionado.getPrecio();
+        return precio;
+    }
     public static ArrayList<String> DameProveedores(){
         int x;
         ArrayList<String> listaNombres = new ArrayList();
         for(x=0; x<productoSeleccionado.getProveedoresProducto().size(); x++)
             listaNombres.add(productoSeleccionado.getProveedoresProducto().get(x).getNombre());
         return listaNombres;
+    }
+    public static void aceptar(){
+        v1.dispose();
+        v1= new VistaGeneral();
+        v1.setVisible(true);
     }
     public static void salir(){
         v1.removeAll();

@@ -146,6 +146,11 @@ public class VistaGeneral extends javax.swing.JFrame {
         jLabel6.setText("Importe de la compra");
 
         tfPrecioCompra.setEnabled(false);
+        tfPrecioCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfPrecioCompraFocusLost(evt);
+            }
+        });
         tfPrecioCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfPrecioCompraActionPerformed(evt);
@@ -153,6 +158,14 @@ public class VistaGeneral extends javax.swing.JFrame {
         });
 
         cbProveedor.setEnabled(false);
+        cbProveedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbProveedorFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbProveedorFocusLost(evt);
+            }
+        });
         cbProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProveedorActionPerformed(evt);
@@ -219,14 +232,29 @@ public class VistaGeneral extends javax.swing.JFrame {
         jLabel8.setText("Cliente");
 
         tfCliente.setEnabled(false);
+        tfCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfClienteActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Descuentos"));
 
         cbPorVolumen.setText("Por volumen");
         cbPorVolumen.setEnabled(false);
+        cbPorVolumen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPorVolumenActionPerformed(evt);
+            }
+        });
 
         cbProntoPago.setText("Por pronto pago");
         cbProntoPago.setEnabled(false);
+        cbProntoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProntoPagoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -303,6 +331,11 @@ public class VistaGeneral extends javax.swing.JFrame {
 
         bAceptar.setText("Aceptar");
         bAceptar.setEnabled(false);
+        bAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAceptarActionPerformed(evt);
+            }
+        });
 
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +402,7 @@ public class VistaGeneral extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreProductoActionPerformed
@@ -415,10 +449,11 @@ public class VistaGeneral extends javax.swing.JFrame {
             cbPorVolumen.setEnabled(false);
             cbProntoPago.setSelected(false);
             cbProntoPago.setEnabled(false);
-            tfImporteVenta.setText("");
+            tfImporteCompra.setText("");
             tfImporteVenta.setEnabled(false);
             ArrayList<String> nombres = Controlador.DameProveedores();
             RellenarComboBox(nombres,true);
+            bAceptar.setEnabled(false);
         }
         else{
             tfPrecioCompra.setText("");
@@ -428,11 +463,15 @@ public class VistaGeneral extends javax.swing.JFrame {
             cbPorVolumen.setEnabled(true);
             cbProntoPago.setEnabled(true);
             tfImporteVenta.setEnabled(true);
+            tfImporteCompra.setText("");
             RellenarComboBox(false);
+             bAceptar.setEnabled(false);
         }
     }//GEN-LAST:event_rbCompraActionPerformed
 
     private void rbVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbVentaActionPerformed
+        double precio;
+        precio =Controlador.damePrecio();
         if (rbCompra.isSelected()){
             tfPrecioCompra.setEnabled(true);
             cbProveedor.setEnabled(false);
@@ -444,18 +483,24 @@ public class VistaGeneral extends javax.swing.JFrame {
             cbProntoPago.setEnabled(false);
             tfImporteVenta.setText("");
             tfImporteVenta.setEnabled(false);
+            tfImporteCompra.setText("");
             ArrayList<String> nombres = Controlador.DameProveedores();
             RellenarComboBox(nombres,true);
+            bAceptar.setEnabled(false);
         }
         else{
             tfPrecioCompra.setText("");
+            tfPrecioVenta.setText(""+precio);
             tfPrecioCompra.setEnabled(false);
             cbProveedor.setEnabled(false);
             tfCliente.setEnabled(true);
             cbPorVolumen.setEnabled(true);
             cbProntoPago.setEnabled(true);
             tfImporteVenta.setEnabled(true);
+            tfImporteVenta.setText(""+precio*Integer.parseInt(tfUnidades.getText()));
+            tfImporteCompra.setText("");
             RellenarComboBox(false);
+             bAceptar.setEnabled(false);
         }
     }//GEN-LAST:event_rbVentaActionPerformed
 
@@ -474,10 +519,47 @@ public class VistaGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_tfPrecioCompraActionPerformed
 
     private void cbProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProveedorActionPerformed
-        
+                
+    }//GEN-LAST:event_cbProveedorActionPerformed
+
+    private void tfPrecioCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPrecioCompraFocusLost
         double importe= Integer.parseInt(tfUnidades.getText())*Double.parseDouble(tfPrecioCompra.getText());
         tfImporteCompra.setText(""+importe);
-    }//GEN-LAST:event_cbProveedorActionPerformed
+    }//GEN-LAST:event_tfPrecioCompraFocusLost
+
+    private void tfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfClienteActionPerformed
+        bAceptar.setEnabled(true);
+    }//GEN-LAST:event_tfClienteActionPerformed
+
+    private void cbProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbProveedorFocusLost
+        
+    }//GEN-LAST:event_cbProveedorFocusLost
+
+    private void cbProveedorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbProveedorFocusGained
+        bAceptar.setEnabled(true);
+    }//GEN-LAST:event_cbProveedorFocusGained
+
+    private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
+        Controlador.aceptar();
+    }//GEN-LAST:event_bAceptarActionPerformed
+
+    private void cbPorVolumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPorVolumenActionPerformed
+        if(cbPorVolumen.isSelected()){
+            tfImporteVenta.setText(""+(0.98)*Double.parseDouble(tfImporteVenta.getText()));
+        }
+        else{
+            tfImporteVenta.setText(""+100*Double.parseDouble(tfImporteVenta.getText())/98);
+        }
+    }//GEN-LAST:event_cbPorVolumenActionPerformed
+
+    private void cbProntoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProntoPagoActionPerformed
+        if(cbProntoPago.isSelected()){
+            tfImporteVenta.setText(""+(0.97)*Double.parseDouble(tfImporteVenta.getText()));
+        }
+        else{
+            tfImporteVenta.setText(""+100*Double.parseDouble(tfImporteVenta.getText())/97);
+        }
+    }//GEN-LAST:event_cbProntoPagoActionPerformed
 
     /**
      * @param args the command line arguments
