@@ -8,16 +8,22 @@ package tema_7_01;
 import Vista.*;
 
 public class Controlador {
-
     private static V1 v1;
-  
+    
     public static void main(String[] args) {
+        try{
+
         v1 = new V1();
         v1.setVisible(true);  
-    }
+        }
+        catch  (Exception e) {
+            e.getClass();
+        }
+}
+
     public static void salir(){
         v1.dispose();
         System.exit(0);
     }
+}   
     
-}

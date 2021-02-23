@@ -22,7 +22,7 @@ public class V1 extends javax.swing.JFrame {
     
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
-       
+        GenerarRandoms();
     }
 
     /**
@@ -189,9 +189,7 @@ public class V1 extends javax.swing.JFrame {
                             .addComponent(tfNumero1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                             .addComponent(tfIntentos))
                         .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(bActivar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -247,6 +245,7 @@ public class V1 extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNumero2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNumero2ActionPerformed
@@ -284,20 +283,24 @@ public class V1 extends javax.swing.JFrame {
         tfNumero2.setText(""+numero2);
     }
     private void bComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprobarActionPerformed
+        try{
         int respuestaUsuario= Integer.parseInt(JOptionPane.showInputDialog("Cuanto es  "+tfNumero1.getText()+"  +  "+tfNumero2.getText()+" ?"));
         if (respuestaUsuario == (Integer.parseInt(tfNumero1.getText())+Integer.parseInt(tfNumero2.getText()))){
             tfIntentos.setText(""+(Integer.parseInt(tfIntentos.getText())+1));
             tfAciertos.setText(""+(Integer.parseInt(tfAciertos.getText())+1));
             GenerarRandoms();
         }
-        else{
-            tfIntentos.setText(""+(Integer.parseInt(tfIntentos.getText())+1));
-            tfErrores.setText(""+(Integer.parseInt(tfErrores.getText())+1));
-        }
+        
         if((Integer.parseInt(tfAciertos.getText()))==(Integer.parseInt(tfErrores.getText())+5)){
             v2= new V2();
             v2.setVisible(true); 
             bSalir.doClick();
+        }
+        }
+        catch (Exception e){
+            e.getClass();
+            tfIntentos.setText(""+(Integer.parseInt(tfIntentos.getText())+1));
+            tfErrores.setText(""+(Integer.parseInt(tfErrores.getText())+1));
         }
     }//GEN-LAST:event_bComprobarActionPerformed
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
