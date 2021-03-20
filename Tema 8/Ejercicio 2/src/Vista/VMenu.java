@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tema_8_02.Controlador;
 
 /**
@@ -33,6 +35,8 @@ public class VMenu extends javax.swing.JFrame {
         bGuardar = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
+        bSalir = new javax.swing.JButton();
+        bPersona = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mOpciones = new javax.swing.JMenu();
         miGuardar = new javax.swing.JMenuItem();
@@ -69,6 +73,20 @@ public class VMenu extends javax.swing.JFrame {
         });
         jToolBar1.add(bCancelar);
 
+        bSalir.setText("Salir");
+        bSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSalirActionPerformed(evt);
+            }
+        });
+
+        bPersona.setText("Quiero inscribirme");
+        bPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPersonaActionPerformed(evt);
+            }
+        });
+
         mOpciones.setText("Opciones");
 
         miGuardar.setText("GuardarEvento");
@@ -98,8 +116,18 @@ public class VMenu extends javax.swing.JFrame {
         jMenuBar1.add(mOpciones);
 
         mSalir.setText("Salir");
+        mSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSalirActionPerformed(evt);
+            }
+        });
 
         miSalir.setText("Salir");
+        miSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSalirActionPerformed(evt);
+            }
+        });
         mSalir.add(miSalir);
 
         jMenuBar1.add(mSalir);
@@ -111,12 +139,25 @@ public class VMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(bPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 249, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(bPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -132,20 +173,56 @@ public class VMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_miGuardarActionPerformed
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
-        Controlador.accion("modificar");
+        try {
+            Controlador.accion("modificar");
+        } catch (Exception ex) {
+            Logger.getLogger(VMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bModificarActionPerformed
 
     private void miModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miModificarActionPerformed
-        Controlador.accion("modificar");
+        try {
+            Controlador.accion("modificar");
+        } catch (Exception ex) {
+            Logger.getLogger(VMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_miModificarActionPerformed
 
     private void miCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCancelarActionPerformed
-        Controlador.accion("cancelar");
+        try {
+            Controlador.accion("cancelar");
+        } catch (Exception ex) {
+            Logger.getLogger(VMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_miCancelarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        Controlador.accion("cancelar");
+        try {
+            Controlador.accion("cancelar");
+        } catch (Exception ex) {
+            Logger.getLogger(VMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
+        Controlador.acabar();
+    }//GEN-LAST:event_bSalirActionPerformed
+
+    private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
+       
+    }//GEN-LAST:event_mSalirActionPerformed
+
+    private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
+        bSalir.doClick();
+    }//GEN-LAST:event_miSalirActionPerformed
+
+    private void bPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPersonaActionPerformed
+        try {
+            Controlador.Inscliente();
+        } catch (Exception ex) {
+            Logger.getLogger(VMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bPersonaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +264,8 @@ public class VMenu extends javax.swing.JFrame {
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bGuardar;
     private javax.swing.JButton bModificar;
+    private javax.swing.JButton bPersona;
+    private javax.swing.JButton bSalir;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu mOpciones;

@@ -5,8 +5,11 @@
  */
 package Vista;
 
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tema_8_02.Controlador;
 
 /**
@@ -20,6 +23,15 @@ public class VEvento extends javax.swing.JFrame {
      */
     public VEvento() {
         initComponents();
+    }
+    public VEvento(String nombre,String lugar, LocalDate fecha, int aforo) {
+        initComponents();
+        tfNombre.setEnabled(false);
+        tfNombre.setText(nombre);
+        ffFecha.setText(fecha+"");
+        ffInvitados.setText(aforo+"");
+        bAnadirEvento.setEnabled(false);
+        bModificarEvento.setEnabled(true);
     }
 
     /**
@@ -46,6 +58,7 @@ public class VEvento extends javax.swing.JFrame {
         bAnadirEvento = new javax.swing.JButton();
         ffInvitados = new javax.swing.JFormattedTextField();
         bModificarEvento = new javax.swing.JButton();
+        bCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,7 +118,7 @@ public class VEvento extends javax.swing.JFrame {
         });
 
         try {
-            ffInvitados.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
+            ffInvitados.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -123,35 +136,47 @@ public class VEvento extends javax.swing.JFrame {
             }
         });
 
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bAnadirEvento)
-                        .addGap(18, 18, 18)
-                        .addComponent(bModificarEvento))
-                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbLugar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbHoraInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbHoraFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(ffFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(ffInvitados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bAnadirEvento)
+                                .addGap(18, 18, 18)
+                                .addComponent(bModificarEvento))
+                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbLugar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cbHoraInicio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbHoraFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ffFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(ffInvitados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(bCancelar)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,11 +197,11 @@ public class VEvento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ffFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -187,7 +212,9 @@ public class VEvento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAnadirEvento)
                     .addComponent(bModificarEvento))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(bCancelar)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,21 +244,35 @@ public class VEvento extends javax.swing.JFrame {
     private void bAnadirEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirEventoActionPerformed
             String nombre = tfNombre.getText();
             int lugar = cbLugar.getSelectedIndex();
-            
-            String fechaString = ffFecha.getText();
-            int dia = fechaString.charAt(1)+fechaString.charAt(2);
-            int mes = fechaString.charAt(4)+fechaString.charAt(5);
-            int ano = fechaString.charAt(7)+fechaString.charAt(8)+fechaString.charAt(9)+fechaString.charAt(10);
-            LocalDate fecha = LocalDate.of(dia,mes,ano);
-            Time horaInicio = (Time) cbHoraInicio.getSelectedItem();
-            Time horaFin = (Time) cbHoraFin.getSelectedItem();
+            LocalDate fecha;
+            int dia = Integer.parseInt(""+ffFecha.getText().charAt(0)+ ffFecha.getText().charAt(1));
+            int mes = Integer.parseInt(""+ffFecha.getText().charAt(3)+ ffFecha.getText().charAt(4));
+            int ano = Integer.parseInt(""+ffFecha.getText().charAt(6)+ ffFecha.getText().charAt(7)+ffFecha.getText().charAt(8)+ ffFecha.getText().charAt(9));
+            fecha =LocalDate.of(ano, mes, dia);
+            Time horaInicio = Time.valueOf(""+cbHoraInicio.getSelectedItem()+":00");
+            Time horaFin = Time.valueOf(""+cbHoraFin.getSelectedItem()+":00");
             int aforo = Integer.parseInt(ffInvitados.getText());
-            Controlador.anadirEvento(nombre,lugar,fecha,horaInicio,horaFin,aforo);
+        try {
+            Controlador.controladorEvento(nombre,lugar,fecha,horaInicio,horaFin,aforo);
+        } catch (Exception ex) {
+            Logger.getLogger(VEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bAnadirEventoActionPerformed
 
     private void bModificarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarEventoActionPerformed
-        Controlador.modificarEvento();
+        try {
+            String nombre = tfNombre.getText();
+            int aforo = Integer.parseInt(ffInvitados.getText());
+            Controlador.controladorEvento(nombre,aforo);
+            Controlador.confirmarModificacion();
+        } catch (SQLException ex) {
+            Logger.getLogger(VEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bModificarEventoActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        Controlador.cancelarv2();
+    }//GEN-LAST:event_bCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +312,7 @@ public class VEvento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAnadirEvento;
+    private javax.swing.JButton bCancelar;
     private javax.swing.JButton bModificarEvento;
     private javax.swing.JComboBox<String> cbHoraFin;
     private javax.swing.JComboBox<String> cbHoraInicio;

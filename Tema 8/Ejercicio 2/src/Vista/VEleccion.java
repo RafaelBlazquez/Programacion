@@ -5,6 +5,10 @@
  */
 package Vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tema_8_02.Controlador;
+
 /**
  *
  * @author leora
@@ -17,18 +21,19 @@ public class VEleccion extends javax.swing.JFrame {
     public VEleccion() {
         initComponents();
     }
-    public VEleccion(String accion) {
+    public VEleccion(String accion) throws Exception {
         initComponents();
         if (accion.equals("cancelar")){
             lTitulo.setText("Selecciona el evento a cancelar");
-            bCancelar.setEnabled(true);
-            bModificar.setEnabled(false);
+            bModificar.setText("Cancelar");
+           
         }
         else{
             lTitulo.setText("Selecciona el evento a modificar");
-            bModificar.setEnabled(true);
-            bCancelar.setEnabled(false);
+            bModificar.setText("Modificar");
+         
         }
+        Controlador.tenCB(cbEventos);
     }
 
     /**
@@ -41,9 +46,9 @@ public class VEleccion extends javax.swing.JFrame {
     private void initComponents() {
 
         lTitulo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbEventos = new javax.swing.JComboBox<>();
         bModificar = new javax.swing.JButton();
-        bCancelar = new javax.swing.JButton();
+        bAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,13 +56,16 @@ public class VEleccion extends javax.swing.JFrame {
         lTitulo.setText("Selecciona el evento a modificar");
 
         bModificar.setText("Modificar");
-        bModificar.setEnabled(false);
-
-        bCancelar.setText("Cancelar");
-        bCancelar.setEnabled(false);
-        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+        bModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarActionPerformed(evt);
+                bModificarActionPerformed(evt);
+            }
+        });
+
+        bAtras.setText("Atrás");
+        bAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAtrasActionPerformed(evt);
             }
         });
 
@@ -68,13 +76,13 @@ public class VEleccion extends javax.swing.JFrame {
             .addComponent(lTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(bModificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(bCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addComponent(bAtras)
                 .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
@@ -83,11 +91,11 @@ public class VEleccion extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(lTitulo)
                 .addGap(44, 44, 44)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbEventos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bModificar)
-                    .addComponent(bCancelar))
+                    .addComponent(bAtras))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -95,9 +103,26 @@ public class VEleccion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bCancelarActionPerformed
+    private void bAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAtrasActionPerformed
+        Controlador.cancelarv3();
+    }//GEN-LAST:event_bAtrasActionPerformed
+
+    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+        String elegido = (String) cbEventos.getSelectedItem();
+        if(bModificar.getText().equals("Modificar"))
+            try {
+                Controlador.modificarEvento(elegido);
+        } catch (Exception ex) {
+            Logger.getLogger(VEleccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        else
+            try {
+                Controlador.cancelarEvento(elegido);
+        } catch (Exception ex) {
+            Logger.getLogger(VEleccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }//GEN-LAST:event_bModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,9 +160,9 @@ public class VEleccion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bAtras;
     private javax.swing.JButton bModificar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbEventos;
     private javax.swing.JLabel lTitulo;
     // End of variables declaration//GEN-END:variables
 }
