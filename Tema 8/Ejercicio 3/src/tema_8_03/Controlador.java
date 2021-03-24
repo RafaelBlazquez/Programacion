@@ -52,26 +52,62 @@ public class Controlador {
         accionS = accion;
         switch(protagonista){
             case 1:
-                v1.setVisible(false);
+                v1.dispose();
                 v2= new VCliente(accion);
                 v2.setVisible(true);
                 break;
             case 2:
-                v1.setVisible(false);
+                v1.dispose();
                 v3= new VAbogado(accion);
                 v3.setVisible(true);
                 break;
             case 3:
-                v1.setVisible(false);
+                v1.dispose();
                 v4= new VCaso(accion);
                 v4.setVisible(true);
                 break;
             case 4:
-                v1.setVisible(false);
+                v1.dispose();
                 v5= new VJuicio(accion);
                 v5.setVisible(true);
                 break;
         }
+    }
+    public static void datosAlta(String dni, String nombre, String apellidos, String direccion, String telefono, String email) throws Exception{
+        cl = new Cliente(dni,nombre,apellidos,direccion,telefono,email);
+        switch (accionS){
+            case 1:
+                ClienteDAO.anadirPersona(cl);
+                break;
+            case 2:
+                ClienteDAO.eliminarPersona(cl);
+                break;
+        }
+            v2.dispose();
+            v1 = new VMenu();
+            v1.setVisible(true);
+        
+    }
+    public static boolean buscaUno(String posicion, String palabra) throws Exception{
+        boolean encontrado=false;
+        String dni;
+        String nombre;
+        String apellidos;
+        String direccion;
+        String telefono;
+        String email;        
+        cl = ClienteDAO.buscaUno(posicion,palabra);
+        if (cl.getDni()!=null){
+            dni = cl.getDni();
+            nombre = cl.getNombre();
+            apellidos = cl.getApellidos();
+            direccion = cl.getDireccion();
+            telefono = cl.getTelefono();
+            email = cl.getEmail();            
+            v2.dameDatos(dni, nombre, apellidos, direccion, telefono, email);
+            encontrado = true;
+        }
+        return encontrado;
     }
     public static void cancelar(){
         switch (protagonistaS){
