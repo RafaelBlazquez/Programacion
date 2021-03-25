@@ -5,8 +5,8 @@
  */
 package Vista;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import tema_8_03.Controlador;
 
@@ -17,14 +17,26 @@ import tema_8_03.Controlador;
  
 public final class VCliente extends javax.swing.JFrame {
     int posicion;
+    int posicionUno;
+    int cuantos;
     String posicionString;
     String palabra;
     String tema;
+    int contador;
+    int contadorUno;
+    ArrayList<String> datoseis;
+    int cantidad;
     public VCliente() {
         initComponents();
+        lCual.setVisible(false);
     }
-     public VCliente(int accion) {
+    
+    public VCliente(int accion) {
+        contador=0;
         initComponents();
+        lCual.setVisible(false);
+        bAurreko.setVisible(false);
+        bHurrengo.setVisible(false);
         switch (accion){
             case 1:
                 tema = "Alta";
@@ -40,17 +52,28 @@ public final class VCliente extends javax.swing.JFrame {
                 break;
             case 3:
                 tema = "Modificacion";
+                bAceptar.setText("Modificar");
+                bAceptar.setEnabled(false);
                 break;
             case 4:
-                tema = "Cosulta";
+                tema = "Consulta";
                 disableBotones();
+                datoseis = Controlador.rellenarDatos(contador);
+                tfDni.setText(datoseis.get(0));
+                tfNombre.setText(datoseis.get(1));
+                tfApellidos.setText(datoseis.get(2));
+                tfDireccion.setText(datoseis.get(3));
+                tfTelefono.setText(datoseis.get(4));
+                tfEmail.setText(datoseis.get(5));
                 bBuscar.setText("Anterior");
+                bBuscar.setEnabled(false);
                 bAceptar.setText("Siguiente");
                 bCancelar.setText("Atrás");
                 break;
         }
         lTitulo.setText("Clientes : "+tema);
     }
+    
     public void enableTodos(){
         tfDni.setEnabled(true);
         tfNombre.setEnabled(true);
@@ -59,6 +82,7 @@ public final class VCliente extends javax.swing.JFrame {
         tfTelefono.setEnabled(true);
         tfEmail.setEnabled(true);
     }
+    
     public void disableTodos(){
         tfDni.setEnabled(false);
         tfDni.setText("");
@@ -73,6 +97,7 @@ public final class VCliente extends javax.swing.JFrame {
         tfEmail.setEnabled(false);
         tfEmail.setText("");
     }
+    
     public void enableBotones(){
         bDni.setEnabled(true);
         bNombre.setEnabled(true);
@@ -81,6 +106,7 @@ public final class VCliente extends javax.swing.JFrame {
         bTelefono.setEnabled(true);
         bEmail.setEnabled(true);
     }
+    
     public void disableBotones(){
         bDni.setEnabled(false);
         bNombre.setEnabled(false);
@@ -121,6 +147,9 @@ public final class VCliente extends javax.swing.JFrame {
         bTelefono = new javax.swing.JButton();
         bEmail = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
+        lCual = new javax.swing.JLabel();
+        bAurreko = new javax.swing.JButton();
+        bHurrengo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -212,11 +241,38 @@ public final class VCliente extends javax.swing.JFrame {
             }
         });
 
+        lCual.setText("1/2");
+
+        bAurreko.setText("<");
+        bAurreko.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAurrekoActionPerformed(evt);
+            }
+        });
+
+        bHurrengo.setText(">");
+        bHurrengo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHurrengoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bAurreko)
+                        .addGap(18, 18, 18)
+                        .addComponent(bHurrengo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(lCual)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,8 +312,17 @@ public final class VCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(lTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lCual)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bAurreko)
+                            .addComponent(bHurrengo))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,7 +358,7 @@ public final class VCliente extends javax.swing.JFrame {
                     .addComponent(bCancelar)
                     .addComponent(bAceptar)
                     .addComponent(bBuscar))
-                .addGap(0, 53, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         pack();
@@ -301,17 +366,25 @@ public final class VCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-            String dni = tfDni.getText();
-            String nombre = tfNombre.getText();
-            String apellidos = tfApellidos.getText();
-            String direccion = tfDireccion.getText();
-            String telefono = tfTelefono.getText();
-            String email = tfEmail.getText();
-            try {
-                Controlador.datosAlta(dni,nombre,apellidos,direccion,telefono,email);
-            } catch (Exception ex) {
+        if (!tema.equals("Consulta")){
+            try {     
+                Controlador.datosCliente(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText(),tfTelefono.getText(),tfEmail.getText());     
+            } 
+            catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
+            }     
+        }
+        else{
+            if (contador<cantidad-1){
+            contador += 1;
+            datoseis = Controlador.rellenarDatos(contador);
+            rellenarTf(); 
+            bBuscar.setEnabled(true);
+                if (contador==cantidad-1)
+                    bAceptar.setEnabled(false);
             }
+            
+        }
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
@@ -353,49 +426,131 @@ public final class VCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_bEmailActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-      
-        switch(posicion){
-            case 1:
-                posicionString= "dni";
-                palabra = tfDni.getText();
-                break;
-            case 2:
-                posicionString= "nombre";
-                palabra = tfNombre.getText();
-                break;
-            case 3:
-                posicionString= "apellidos";
-                palabra = tfApellidos.getText();
-                break;
-            case 4:
-                posicionString= "direccion";
-                palabra = tfDireccion.getText();
-                break;
-            case 5:
-                posicionString= "telefono";
-                palabra = tfTelefono.getText();
-                break;
-            case 6:
-                posicionString= "email";
-                palabra = tfEmail.getText();
-                break;               
-        }
-        try {
-            boolean encontrado = Controlador.buscaUno(posicionString,palabra);
-            if (encontrado){
-                bAceptar.setEnabled(true);
-                disableBotones();
+        if (!tema.equals("Consulta")){
+            switch(posicion){
+                case 1:
+                    posicionString= "dni";
+                    palabra = tfDni.getText();
+                    break;
+                case 2:
+                    posicionString= "nombre";
+                    palabra = tfNombre.getText();
+                    break;
+                case 3:
+                    posicionString= "apellidos";
+                    palabra = tfApellidos.getText();
+                    break;
+                case 4:
+                    posicionString= "direccion";
+                    palabra = tfDireccion.getText();
+                    break;
+                case 5:
+                    posicionString= "telefono";
+                    palabra = tfTelefono.getText();
+                    break;
+                case 6:
+                    posicionString= "email";
+                    palabra = tfEmail.getText();
+                    break;               
             }
-            else{
-                JOptionPane.showMessageDialog(null,"El cliente solicitado no esta registrado");
-                disableTodos();
-                enableBotones();
+            try {
+                boolean encontrado = Controlador.buscaUno(posicionString,palabra);
+                if (encontrado){
+                    bBuscar.setEnabled(false);
+                    bAceptar.setEnabled(true);
+                    disableBotones();
+                    posicionUno = 0;
+                    contadorUno = 0;
+                    lCual.setText((posicionUno+1)+"/"+cuantos);
+                    lCual.setVisible(true);
+                    bAurreko.setVisible(true);
+                    bHurrengo.setVisible(true);
+                    bAurreko.setEnabled(false);
+                    if (cuantos ==1){
+                        bHurrengo.setEnabled(false); 
+                    }
+                    if (tema.equals("Modificacion")){
+                enableTodos();
+                switch(posicion){
+                    case 1:
+                        tfDni.setEnabled(false);
+                        break;
+                    case 2:
+                        tfNombre.setEnabled(false);
+                        break;
+                    case 3:
+                        tfApellidos.setEnabled(false);
+                        break;
+                    case 4:
+                       tfDireccion.setEnabled(false);
+                        break;
+                    case 5:
+                        tfTelefono.setEnabled(false);
+                        break;
+                    case 6:
+                        tfEmail.setEnabled(false);
+                        break;               
+                }
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"El cliente solicitado no esta registrado");
+                    disableTodos();
+                    enableBotones();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
+        else{
+            if (contador!=0){
+            contador -= 1;
+            datoseis =Controlador.rellenarDatos(contador);
+            rellenarTf();
+            bAceptar.setEnabled(true);
+                if (contador==0)
+                    bBuscar.setEnabled(false);
+            }
+        }
+        
     }//GEN-LAST:event_bBuscarActionPerformed
-    public void dameDatos(String dni, String nombre, String apellidos, String direccion, String telefono, String email){
+
+    private void bAurrekoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAurrekoActionPerformed
+        if (posicionUno!=0){
+            posicionUno -= 1;
+            datoseis =Controlador.rellenarDatos(posicionUno);
+            rellenarTf();
+            bHurrengo.setEnabled(true);
+                if (posicionUno==0)
+                    bAurreko.setEnabled(false);
+            }
+    }//GEN-LAST:event_bAurrekoActionPerformed
+
+    private void bHurrengoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHurrengoActionPerformed
+        if (posicionUno<cuantos){
+            posicionUno += 1;
+            datoseis = Controlador.rellenarDatos(posicionUno);
+            rellenarTf(); 
+            bAurreko.setEnabled(true);
+                if (posicionUno==cuantos-1)
+                    bHurrengo.setEnabled(false);
+            }
+    }//GEN-LAST:event_bHurrengoActionPerformed
+
+    
+    public void ten (int numero){
+    cantidad = numero;
+    }
+    public void rellenarTf(){
+            tfDni.setText(datoseis.get(0));
+            tfNombre.setText(datoseis.get(1));
+            tfApellidos.setText(datoseis.get(2));
+            tfDireccion.setText(datoseis.get(3));
+            tfTelefono.setText(datoseis.get(4));
+            tfEmail.setText(datoseis.get(5));     
+    }
+    public void dameDatos(int cantidad,String dni, String nombre, String apellidos, String direccion, String telefono, String email){
+        cuantos= cantidad;
         tfDni.setText(dni);
         tfNombre.setText(nombre);
         tfApellidos.setText(apellidos);
@@ -403,8 +558,10 @@ public final class VCliente extends javax.swing.JFrame {
         tfTelefono.setText(telefono);
         tfEmail.setText(email);
     }
+    
     public void buscarPor(int numero){
         posicion=numero;
+        
         disableTodos();
         enableBotones();
         switch (numero){
@@ -473,11 +630,13 @@ public final class VCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bApellidos;
+    private javax.swing.JButton bAurreko;
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bDireccion;
     private javax.swing.JButton bDni;
     private javax.swing.JButton bEmail;
+    private javax.swing.JButton bHurrengo;
     private javax.swing.JButton bNombre;
     private javax.swing.JButton bTelefono;
     private javax.swing.JLabel jLabel1;
@@ -486,6 +645,7 @@ public final class VCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lCual;
     private javax.swing.JLabel lTitulo;
     private javax.swing.JTextField tfApellidos;
     private javax.swing.JTextField tfDireccion;

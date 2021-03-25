@@ -8,6 +8,8 @@ package tema_8_03;
 import ModeloBD.*;
 import UML.*;
 import Vista.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,15 +28,20 @@ public class Controlador {
      * CASO (IDJUICIO) // CASOJUICIO
      */
     public static BaseDatos bd;
-    public static ClienteDAO clDAO;
-    public static Cliente cl;
+    
     public static VMenu v1;
     public static VCliente v2;
+        public static ClienteDAO clDAO;
+        public static Cliente cl;
     public static VAbogado v3;
     public static VCaso v4;
     public static VJuicio v5;
+    
     public static int protagonistaS;
     public static int accionS;
+    public static String dniAntiguo;
+    public static  ArrayList<Cliente> clientes;
+   
     public static void main(String[] args) {
         try{
             bd = new BaseDatos();
@@ -47,13 +54,20 @@ public class Controlador {
             System.out.println(e.getMessage()+e.getClass());
         }
     }
-    public static void toma(int accion, int protagonista){
+    
+    public static void toma(int accion, int protagonista) throws SQLException{
         protagonistaS= protagonista;
         accionS = accion;
+        int cantidad=0;
         switch(protagonista){
             case 1:
                 v1.dispose();
-                v2= new VCliente(accion);
+                if (accionS !=1){
+                    clientes= ClienteDAO.buscarTodos();
+                    cantidad = clientes.size();
+                }
+                v2= new VCliente(accion); 
+                v2.ten(cantidad);
                 v2.setVisible(true);
                 break;
             case 2:
@@ -73,7 +87,8 @@ public class Controlador {
                 break;
         }
     }
-    public static void datosAlta(String dni, String nombre, String apellidos, String direccion, String telefono, String email) throws Exception{
+    
+    public static void datosCliente(String dni, String nombre, String apellidos, String direccion, String telefono, String email) throws Exception{
         cl = new Cliente(dni,nombre,apellidos,direccion,telefono,email);
         switch (accionS){
             case 1:
@@ -82,12 +97,17 @@ public class Controlador {
             case 2:
                 ClienteDAO.eliminarPersona(cl);
                 break;
+            case 3:
+                ClienteDAO.modificarPersona(dniAntiguo,cl);
+            case 4:
+                
+            break;    
         }
             v2.dispose();
             v1 = new VMenu();
             v1.setVisible(true);
-        
     }
+    
     public static boolean buscaUno(String posicion, String palabra) throws Exception{
         boolean encontrado=false;
         String dni;
@@ -95,20 +115,44 @@ public class Controlador {
         String apellidos;
         String direccion;
         String telefono;
-        String email;        
-        cl = ClienteDAO.buscaUno(posicion,palabra);
-        if (cl.getDni()!=null){
-            dni = cl.getDni();
-            nombre = cl.getNombre();
-            apellidos = cl.getApellidos();
-            direccion = cl.getDireccion();
-            telefono = cl.getTelefono();
-            email = cl.getEmail();            
-            v2.dameDatos(dni, nombre, apellidos, direccion, telefono, email);
-            encontrado = true;
-        }
+        String email;
+        int cantidad;
+        clientes = ClienteDAO.buscarTodos(posicion,palabra);
+        cantidad = clientes.size();
+            cl= clientes.get(0);
+            if (cl.getDni()!=null){
+                dni = cl.getDni();
+                dniAntiguo = dni;
+                nombre = cl.getNombre();
+                apellidos = cl.getApellidos();
+                direccion = cl.getDireccion();
+                telefono = cl.getTelefono();
+                email = cl.getEmail();            
+                v2.dameDatos(cantidad,dni, nombre, apellidos, direccion, telefono, email);
+                encontrado = true;
+            }
         return encontrado;
     }
+    
+    public static ArrayList<String> rellenarDatos(int contador){
+        ArrayList<String> datosUno = new ArrayList();
+        String palabra ;
+        
+            palabra = clientes.get(contador).getDni();
+            datosUno.add(palabra);
+            palabra = clientes.get(contador).getNombre();
+            datosUno.add(palabra);
+            palabra = clientes.get(contador).getApellidos();
+            datosUno.add(palabra);
+            palabra = clientes.get(contador).getDireccion();
+            datosUno.add(palabra);
+            palabra = clientes.get(contador).getTelefono();
+            datosUno.add(palabra);
+            palabra = clientes.get(contador).getEmail();
+            datosUno.add(palabra);
+        return datosUno;
+    }
+    
     public static void cancelar(){
         switch (protagonistaS){
             case 1:
@@ -129,6 +173,7 @@ public class Controlador {
                 break;
         }
     }
+    
     public static void salir(){
         v1.dispose();
         System.exit(0);
