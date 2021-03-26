@@ -33,6 +33,8 @@ public class Controlador {
     public static VCliente v2;
         public static ClienteDAO clDAO;
         public static Cliente cl;
+        public static AbogadoDAO abDAO;
+        public static Abogado ab;
     public static VAbogado v3;
     public static VCaso v4;
     public static VJuicio v5;
@@ -41,12 +43,14 @@ public class Controlador {
     public static int accionS;
     public static String dniAntiguo;
     public static  ArrayList<Cliente> clientes;
+     public static  ArrayList<Abogado> abogados;
    
     public static void main(String[] args) {
         try{
             bd = new BaseDatos();
             bd.conectar();
             clDAO = new ClienteDAO(bd.getCon());
+            abDAO = new AbogadoDAO(bd.getCon());
             v1= new VMenu();
             v1.setVisible(true);   
         }
@@ -92,18 +96,37 @@ public class Controlador {
         cl = new Cliente(dni,nombre,apellidos,direccion,telefono,email);
         switch (accionS){
             case 1:
-                ClienteDAO.anadirPersona(cl);
+                ClienteDAO.anadirCliente(cl);
                 break;
             case 2:
-                ClienteDAO.eliminarPersona(cl);
+                ClienteDAO.eliminarCliente(cl);
                 break;
             case 3:
-                ClienteDAO.modificarPersona(dniAntiguo,cl);
-            case 4:
+                ClienteDAO.modificarCliente(dniAntiguo,cl);
+            
                 
             break;    
         }
             v2.dispose();
+            v1 = new VMenu();
+            v1.setVisible(true);
+    }
+    public static void datosAbogado(String dni, String nombre, String apellidos, String direccion) throws Exception{
+        ab = new Abogado(dni,nombre,apellidos,direccion);
+        switch (accionS){
+            case 1:
+                AbogadoDAO.anadirAbogado(ab);
+                break;
+            case 2:
+                AbogadoDAO.eliminarAbogado(ab);
+                break;
+            case 3:
+                AbogadoDAO.modificarAbogado(dniAntiguo,ab);
+            
+                
+            break;    
+        }
+            v3.dispose();
             v1 = new VMenu();
             v1.setVisible(true);
     }
@@ -133,11 +156,32 @@ public class Controlador {
             }
         return encontrado;
     }
+    public static boolean buscaUnoAb(String posicion, String palabra) throws Exception{
+        boolean encontrado=false;
+        String dni;
+        String nombre;
+        String apellidos;
+        String direccion;
+        int cantidad;
+        abogados =AbogadoDAO.buscarTodos(posicion,palabra);
+        cantidad = abogados.size();
+            ab= abogados.get(0);
+            if (ab.getDni()!=null){
+                dni = ab.getDni();
+                dniAntiguo = dni;
+                nombre = ab.getNombre();
+                apellidos = ab.getApellidos();
+                direccion = ab.getDireccion();          
+                v3.dameDatos(cantidad,dni, nombre, apellidos, direccion);
+                encontrado = true;
+            }
+        return encontrado;
+    }
     
     public static ArrayList<String> rellenarDatos(int contador){
         ArrayList<String> datosUno = new ArrayList();
         String palabra ;
-        
+            
             palabra = clientes.get(contador).getDni();
             datosUno.add(palabra);
             palabra = clientes.get(contador).getNombre();
@@ -149,6 +193,20 @@ public class Controlador {
             palabra = clientes.get(contador).getTelefono();
             datosUno.add(palabra);
             palabra = clientes.get(contador).getEmail();
+            datosUno.add(palabra);
+        return datosUno;
+    }
+    public static ArrayList<String> rellenarDatosAb(int contador){
+        ArrayList<String> datosUno = new ArrayList();
+        String palabra ;
+            
+            palabra = abogados.get(contador).getDni();
+            datosUno.add(palabra);
+            palabra = abogados.get(contador).getNombre();
+            datosUno.add(palabra);
+            palabra = abogados.get(contador).getApellidos();
+            datosUno.add(palabra);
+            palabra = abogados.get(contador).getDireccion();
             datosUno.add(palabra);
         return datosUno;
     }

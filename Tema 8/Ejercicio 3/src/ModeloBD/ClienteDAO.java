@@ -23,7 +23,7 @@ public class ClienteDAO {
         this.con = con;
     }
     
-    public static void anadirPersona(Cliente cl) throws Exception{
+    public static void anadirCliente(Cliente cl) throws Exception{
         String plantilla = "insert into clientes values (?,?,?,?,?,?)";
         try (PreparedStatement ps = con.prepareStatement(plantilla)){ 
             ps.setString(1, cl.getDni());
@@ -102,7 +102,7 @@ public class ClienteDAO {
         }
     return clientes;
     }
-    public static void eliminarPersona(Cliente cl) throws Exception{
+    public static void eliminarCliente(Cliente cl) throws Exception{
         
         String plantilla = "delete from clientes where dni= ?";
         try (PreparedStatement ps = con.prepareStatement(plantilla)){ 
@@ -112,7 +112,7 @@ public class ClienteDAO {
         }
     }
     
-    public static void modificarPersona(String dniAntiguo,Cliente cl) throws Exception{
+    public static void modificarCliente(String dniAntiguo,Cliente cl) throws Exception{
         String plantilla = "update clientes set dni = ?, nombre = ?, apellidos = ?, direccion=?, telefono=?, email=? where dni=?";
         try (PreparedStatement ps = con.prepareStatement(plantilla)){ 
             ps.setString(1, cl.getDni());

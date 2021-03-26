@@ -367,8 +367,19 @@ public final class VCliente extends javax.swing.JFrame {
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         if (!tema.equals("Consulta")){
-            try {     
-                Controlador.datosCliente(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText(),tfTelefono.getText(),tfEmail.getText());     
+            boolean seguro=false;
+            try {
+                if(tema.equals("Baja")){
+                     int numero=JOptionPane.showConfirmDialog( null,"Quieres eliminar el cliente con dni "+ tfDni.getText());
+                     if (numero==0)
+                         seguro = true;
+                }
+                else{
+                    Controlador.datosCliente(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText(),tfTelefono.getText(),tfEmail.getText());  
+                }
+                if (seguro)
+                    Controlador.datosCliente(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText(),tfTelefono.getText(),tfEmail.getText());
+                
             } 
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,ex.getMessage());
