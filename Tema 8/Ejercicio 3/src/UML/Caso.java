@@ -14,5 +14,4 @@ import java.util.ArrayList;
 public class Caso {
     Cliente cliente;
     ArrayList<Abogado> abogados = new ArrayList();
-    Juicio juicio;
 }

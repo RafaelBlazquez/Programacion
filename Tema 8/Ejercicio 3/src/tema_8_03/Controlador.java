@@ -37,7 +37,6 @@ public class Controlador {
         public static Abogado ab;
     public static VAbogado v3;
     public static VCaso v4;
-    public static VJuicio v5;
     
     public static int protagonistaS;
     public static int accionS;
@@ -76,18 +75,18 @@ public class Controlador {
                 break;
             case 2:
                 v1.dispose();
+                if (accionS !=1){
+                    abogados= AbogadoDAO.buscarTodos();
+                    cantidad = abogados.size();
+                }
                 v3= new VAbogado(accion);
+                v3.ten(cantidad);
                 v3.setVisible(true);
                 break;
             case 3:
                 v1.dispose();
                 v4= new VCaso(accion);
                 v4.setVisible(true);
-                break;
-            case 4:
-                v1.dispose();
-                v5= new VJuicio(accion);
-                v5.setVisible(true);
                 break;
         }
     }
@@ -223,10 +222,6 @@ public class Controlador {
                 break;
             case 3:
                 v4.dispose();
-                v1.setVisible(true);
-                break;
-            case 4:
-                v5.dispose();
                 v1.setVisible(true);
                 break;
         }

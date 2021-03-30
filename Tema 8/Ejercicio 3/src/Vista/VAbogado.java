@@ -58,7 +58,7 @@ public final class VAbogado extends javax.swing.JFrame {
             case 4:
                 tema = "Consulta";
                 disableBotones();
-                datocuatro = Controlador.rellenarDatos(contador);
+                datocuatro = Controlador.rellenarDatosAb(contador);
                 tfDni.setText(datocuatro.get(0));
                 tfNombre.setText(datocuatro.get(1));
                 tfApellidos.setText(datocuatro.get(2));
