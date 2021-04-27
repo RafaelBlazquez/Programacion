@@ -1,0 +1,21 @@
+Pruebas registro:
+
+:::::::::: Acceder ::::::::::
+
+	Usuario o Contraseña vacios --> Debes rellenar los dos campos
+
+	Usuario erroneo(1) + Contraseña erronea --> Los datos introducidos no son correctos
+	Usuario erroneo(1) + Contraseña erronea (x3) --> Los datos introducidos no son correctos + Bloqueo de cuenta (no existe)
+	Usuario erroneo(1) + Contraseña erronea (x4) --> Este usuario ha sido bloqueado (no existe)
+
+	Usuario correcto(2) + Contraseña erronea --> Los datos introducidos no son correctos
+	Usuario correcto(2) + Contraseña erronea (x3) --> Los datos introducidos no son correctos + Bloqueo de cuenta
+	Usuario correcto(2) + Contraseña erronea (x4) --> Este usuario ha sido bloqueado (no existe)
+
+:::::::::: No tengo cuenta :::::::::: (falta validar datos)
+    :: Aceptar ::
+	1. Crea un nuevo usuario en la base de datos 
+	2. Pasa el usuario a la ventana de inicio de sesión
+
+:::::::::: Salir ::::::::::
+	Termina la ejecución
